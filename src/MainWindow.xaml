@@ -1,0 +1,25 @@
+﻿<Window x:Class="CpuTrayMeter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CpuTrayMeter"
+        mc:Ignorable="d"
+        ShowInTaskbar="True"
+        AllowsTransparency="True"
+        Width="165" Height="31"
+        WindowStyle="None"
+        Background="Transparent"
+        Opacity="0.0"
+        ResizeMode="NoResize"
+        WindowStartupLocation="Manual"
+        Left="0" Top="0"
+        FontFamily="Tahoma" FontSize="11"
+        SourceInitialized="OnSourceInitialized"
+        Loaded="OnLoaded"
+        >
+    <Grid>
+        <Label x:Name="label" Content="MainWindow" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

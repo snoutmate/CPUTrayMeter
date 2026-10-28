@@ -1,0 +1,139 @@
+﻿<Window x:Class="CpuTrayMeter.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CpuTrayMeter"
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+        xmlns:numeric="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+        mc:Ignorable="d"
+        Title="Settings"
+        Width="340" SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI" FontSize="13">
+
+    <!--Background="#F7F7F8"-->
+
+    <Window.DataContext>
+        <!-- this is only default for XAML designer, for code-completion to work in XAML -->
+        <local:AppSettings/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+        <Style TargetType="colorpicker:PortableColorPicker">
+            <Setter Property="Margin" Value="5,0,10,0"/>
+        </Style>
+        <Style TargetType="numeric:NumericUpDown">
+            <Setter Property="Margin" Value="5,3,10,3"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+        <Style TargetType="Separator">
+            <Setter Property="Margin" Value="0,5,0,10"/>
+            <Setter Property="Background" Value="#E2E2E5"/>
+        </Style>
+
+        <Style TargetType="StackPanel">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="24,22,24,22" HorizontalAlignment="Left">
+            <Label HorizontalAlignment="Right" Margin="0,0,0,-20" Content="{x:Static local:App.AppNameWithVersion}"/>
+            <!-- General -->
+            <TextBlock Text="General" Style="{StaticResource SectionTitle}"/>
+            <CheckBox Content="Run at Windows start" IsChecked="{Binding RunAtStartup}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Distance from tray area</TextBlock>
+                <numeric:NumericUpDown Value="{Binding TrayNotifyPadding, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <Separator/>
+
+            <!--Cpu Bars--> 
+            <TextBlock Text="CPU Bars" Style="{StaticResource SectionTitle}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock VerticalAlignment="Center">Scaling</TextBlock>
+                <ComboBox Margin="5,0,0,0"
+                          ItemsSource="{Binding CpuBars.BarsScalingModes}"
+                          SelectedItem="{Binding CpuBars.BarsScaling, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Averaging Samples</TextBlock>
+                <numeric:NumericUpDown Value="{Binding CpuBars.AveragingSamples, Mode=TwoWay}"
+                                       MinValue="1"
+                                       MaxValue="32"/>
+            </StackPanel>
+
+            <CheckBox Content="Sort Bars" IsChecked="{Binding CpuBars.BarsSorted}"/>
+            <CheckBox Content="Base lines" IsChecked="{Binding CpuBars.FloorLines}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                <TextBlock>Bar Color</TextBlock>
+                <colorpicker:PortableColorPicker Width="50" Height="20"
+                    SelectedColor="{Binding CpuBars.BarColor, Mode=TwoWay}"/>
+                <TextBlock>Base Line Color</TextBlock>
+                <colorpicker:PortableColorPicker Width="50" Height="20"
+                    SelectedColor="{Binding CpuBars.FloorLineColor, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Bar Width</TextBlock>
+                <numeric:NumericUpDown Value="{Binding CpuBars.BarWidth, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Gap Width</TextBlock>
+                <numeric:NumericUpDown Value="{Binding CpuBars.GapWidth, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <!--Overlay Text-->
+            <Separator/>
+            <TextBlock Text="Overlay Text" Style="{StaticResource SectionTitle}"/>
+
+            <CheckBox Content="Enabled" x:Name="textEnabled" IsChecked="{Binding OverlayText.Enabled}"/>
+            <StackPanel IsEnabled="{Binding IsChecked, ElementName=textEnabled}">
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,5,0">Text</TextBlock>
+                    <TextBox Text="{Binding OverlayText.Text}" MinWidth="199"/>
+                </StackPanel>
+                <TextBlock Margin="10,0,0,0">
+                %umem - used RAM in GB<LineBreak/>
+                %tmem - total RAM in GB<LineBreak/>
+                </TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                    <TextBlock>Text Color</TextBlock>
+                    <colorpicker:PortableColorPicker Width="50" Height="20"
+                    SelectedColor="{Binding OverlayText.Color, Mode=TwoWay}"/>
+                    <TextBlock>Outline Color</TextBlock>
+                    <colorpicker:PortableColorPicker Width="50" Height="20"
+                    SelectedColor="{Binding OverlayText.OutlineColor, Mode=TwoWay}"/>
+                </StackPanel>
+                <!--Font size-->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center">Font Size</TextBlock>
+                    <numeric:NumericUpDown Value="{Binding OverlayText.FontSize, Mode=TwoWay}"/>
+                    <TextBlock VerticalAlignment="Center">Outline thickness</TextBlock>
+                    <numeric:NumericUpDown Value="{Binding OverlayText.OutlineThickness, Mode=TwoWay}"/>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+    </DockPanel>
+</Window>

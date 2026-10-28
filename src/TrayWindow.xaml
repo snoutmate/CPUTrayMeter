@@ -1,0 +1,34 @@
+﻿<Window x:Class="CpuTrayMeter.TrayWindow"
+        xmlns:local="clr-namespace:CpuTrayMeter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="Manual"
+        Left="0" Top="0"
+        FontSize="13"
+        SourceInitialized="Window_SourceInitialized"
+        AllowsTransparency="True"
+        Loaded="OnLoaded"
+        ContentRendered="OnContentRendered"
+        Background="Transparent"
+        Title="TrayWindow">
+    <!-- near-transparency to fix mouse clicks not registering on transparent parts -->
+    <Grid Background="#01000000">
+        <local:OutlinedTextBlock
+            x:Name="text"
+            Fill="White" 
+            Stroke="Black" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" 
+            Panel.ZIndex="2"
+            StrokeThickness="3.0">
+        TrayWindow
+        </local:OutlinedTextBlock>
+        <local:CpuMetersVisual x:Name="cpuMetersVisual" Panel.ZIndex="1"/>
+        </Grid>
+ </Window>
