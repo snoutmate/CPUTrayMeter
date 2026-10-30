@@ -13,6 +13,8 @@ public partial class App : Application
     public SettingsWindow? mSettingsWindow = null;
     private bool mSettingsWindowShown = false;
 
+    public BluetoothScanner? mBluetoothScanner = null;
+
     public SettingsService SettingsService { get; } = new(App.AppName);
     public AppSettings Settings { get; private set; } = new();
 
@@ -60,6 +62,8 @@ public partial class App : Application
         base.OnStartup(e);
         Settings = SettingsService.Load();
         Settings.SubscribeToChanges(OnSettingsChange);
+
+        mBluetoothScanner = new BluetoothScanner();
 
         mMainWindow = new MainWindow();
         bool? result = mMainWindow.ShowDialog(); // blocking

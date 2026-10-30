@@ -18,17 +18,21 @@
         Background="Transparent"
         Title="TrayWindow">
     <!-- near-transparency to fix mouse clicks not registering on transparent parts -->
-    <Grid Background="#01000000">
-        <local:OutlinedTextBlock
+    <StackPanel Orientation="Horizontal" Background="#01000000">
+        <local:AirPodsVisualControl x:Name="airPodsVisualControl" Margin="0,0,10,0"/>
+        <Grid Background="#01000000">
+            <local:OutlinedTextBlock
             x:Name="text"
             Fill="White" 
             Stroke="Black" 
             HorizontalAlignment="Center"
             VerticalAlignment="Center" 
             Panel.ZIndex="2"
-            StrokeThickness="3.0">
-        TrayWindow
-        </local:OutlinedTextBlock>
-        <local:CpuMetersVisual x:Name="cpuMetersVisual" Panel.ZIndex="1"/>
+            StrokeThickness="3.0"
+            >
+                TrayWindow
+            </local:OutlinedTextBlock>
+            <local:CpuMetersVisual x:Name="cpuMetersVisual" Panel.ZIndex="1"/>
         </Grid>
+    </StackPanel>
  </Window>

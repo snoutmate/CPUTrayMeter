@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="CpuTrayMeter.AirPodsVisualControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CpuTrayMeter"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="130">
+    <UserControl.Resources>
+        <!-- from images/airpod.svg -->
+        <PathGeometry x:Key="Airpod" Figures="M38.205 164.677L37.305 163.89L33.255 160.74L31.905 159.165L13.635 92.43L10.485 77.13L6.66 51.48L2.925 44.8875L1.125 39.15L0 31.05L0.225 25.2L2.475 17.775L5.4 12.9375L8.55 9L12.825 5.175L18 2.475L24.3 0.45L31.1625 0L42.5475 0.37125L50.6475 2.73375L61.8412 6.9525L69.3225 11.2275L76.9725 16.0087L83.0475 21.24L84.3412 22.365L85.2975 20.565L87.2662 18.99L88.8975 18.1462L94.7475 18.4275L99.1912 18.8212L104.422 20.565L108.866 22.2525L113.647 25.065L116.707 27.81L119.745 30.96L122.332 35.0662L123.345 38.4412L123.457 41.5912L122.827 53.8537L122.152 58.0725L119.677 66.3412L117.034 70.6725L114.502 73.2037L109.89 76.2412L103.837 79.2675L97.5375 80.6737L92.6437 80.73L86.7375 80.73L81.3375 79.9425L79.3125 78.5925L77.7937 76.1175L74.3625 77.7487L67.8375 79.605L63.7537 80.1675L58.2975 80.055L52.2225 79.6612L46.5975 78.5362L46.1475 84.6112L46.935 91.305L48.1275 96.9412L50.94 104.929L53.9212 116.572L59.085 132.66L62.0662 142.897L63.8662 149.197L63.0787 155.947L61.2225 158.704L57.285 161.46L52.9537 163.035L46.3725 164.666L41.8725 165.116Z"/>
+
+        <Style x:Key="AirpodText" TargetType="Label">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Margin" Value="0,0,-35,0"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+    </UserControl.Resources>
+    
+    <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+        <!--<Label x:Name="leftPodChargeText" FontSize="10" Foreground="White" Panel.ZIndex="1" Margin="0,-20,-35,0" Height="25" HorizontalAlignment="Center" Content="10%"/>-->
+        <Label x:Name="leftPodChargeText" Style="{StaticResource AirpodText}" Content="10%"/>
+        <!--<local:OutlinedTextBlock
+            x:Name="leftPodChargeText"
+            Fill="White" 
+            Stroke="Black" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" 
+            Panel.ZIndex="2"
+            StrokeThickness="3.0"
+            >
+            10%
+        </local:OutlinedTextBlock>-->
+        <Path x:Name="leftPod" Fill="#eee" Stroke="#000000" Data="{StaticResource Airpod}" Stretch="Uniform" Margin="0,0,5,-20">
+        </Path>
+        <Label x:Name="rightPodChargeText" Style="{StaticResource AirpodText}" Content="20%"/>
+        <Path x:Name="rightPod" Fill="#eee" Stroke="#000000" Data="{StaticResource Airpod}" Stretch="Uniform" Margin="0,0,0,-20">
+            <Path.LayoutTransform>
+                <ScaleTransform ScaleX="-1.0" ScaleY="1.0"/>
+            </Path.LayoutTransform>
+        </Path>
+    </StackPanel>
+</UserControl>

@@ -72,6 +72,8 @@ public partial class TrayWindow : Window
 
     private void OnTrayTimer(object? sender, EventArgs e)
     {
+        SetWindowPositionAndSize();
+
         if (TaskbarChanged())
         {
             DebugPrint("Taskbar changed");
@@ -161,8 +163,10 @@ public partial class TrayWindow : Window
     // - this needs to be called in ContentRendered and every time taskbar/notify area changes (position, dpi, or size)
     private void SetWindowPositionAndSize()
     {
+        var windowWidth = airPodsVisualControl.ActualWidth + Math.Max(cpuMetersVisual.FullWidth, cMinWidth);
         // base width on cpu bars
-        Width = Math.Max(cpuMetersVisual.FullWidth, cMinWidth);
+        Width = windowWidth;
+
 
         // tray window should take 2/3 of taskbar vertically
         double trayWinHeightRatio = (2.0 / 3.0);
