@@ -165,6 +165,7 @@ public partial class TrayWindow : Window
     {
         var windowWidth = airPodsVisualControl.ActualWidth + Math.Max(cpuMetersVisual.FullWidth, cMinWidth);
         // base width on cpu bars
+        cpuBarsAreaGrid.Width = cpuMetersVisual.FullWidth; // to fix centering
         Width = windowWidth;
 
 

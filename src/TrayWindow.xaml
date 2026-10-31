@@ -19,8 +19,8 @@
         Title="TrayWindow">
     <!-- near-transparency to fix mouse clicks not registering on transparent parts -->
     <StackPanel Orientation="Horizontal" Background="#01000000">
-        <local:AirPodsVisualControl x:Name="airPodsVisualControl" Margin="0,0,10,0"/>
-        <Grid Background="#01000000">
+        <local:AirPodsVisualControl x:Name="airPodsVisualControl" Margin="0,0,0,0"/>
+        <Grid Background="#01000000" HorizontalAlignment="Center" x:Name="cpuBarsAreaGrid">
             <local:OutlinedTextBlock
             x:Name="text"
             Fill="White" 

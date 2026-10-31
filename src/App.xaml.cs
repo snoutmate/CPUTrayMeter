@@ -20,6 +20,11 @@ public partial class App : Application
 
     public static App Instance => (App)Current;
 
+    public void SubscribeToBTAdvert(BLEAdvertHandler handler)
+    {
+        mBluetoothScanner?.SubscribeToAdvert(handler);
+    }
+
     public static string Version
     {
         get
