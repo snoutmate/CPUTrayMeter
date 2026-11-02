@@ -7,9 +7,6 @@ using Windows.Storage.Streams;
 
 namespace CpuTrayMeter;
 
-/// <summary>
-/// Interaction logic for AirPodsVisualControl.xaml
-/// </summary>
 public partial class AirPodsVisualControl : UserControl
 {
     private AirPodsStatus mStatus;
@@ -63,7 +60,6 @@ public partial class AirPodsVisualControl : UserControl
 
         // we need to execute UI calls from UI thread via Dispatcher.Invoke()
         // (because this callback is called from non-UI thread)
-        // alternatively we can just update in Timer
         this.Dispatcher.Invoke(() => 
         {
             mStatus = packet;
@@ -89,12 +85,13 @@ public partial class AirPodsVisualControl : UserControl
             else
                 rightPod.Stroke = new SolidColorBrush(mStatus.mRight.isCharging ? Colors.Blue : Colors.White);
 
-            caseChargeText.Content = $"{(mStatus.mCase.level < 0 ? "" : mStatus.mRight.level * 10)}";
+            caseChargeText.Content = $"{(mStatus.mCase.level < 0 ? "" : mStatus.mCase.level * 10)}";
         }
         else
         {
             leftPodChargeText.Content = "";
             rightPodChargeText.Content = "";
+            caseChargeText.Content = "";
             leftPod.Stroke = new SolidColorBrush(Colors.Black);
             rightPod.Stroke = new SolidColorBrush(Colors.Black);
         }
