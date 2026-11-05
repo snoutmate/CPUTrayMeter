@@ -47,9 +47,22 @@ public partial class TrayWindow : Window
 
     private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        // show/hide settings window when clicking on tray
+        // launch task manager when clicking on system tray
+        // since we're already running under admin perms, no UAC screen will be raised
+        Process.Start("taskmgr.exe");
+    }
+
+    private void ContextMenu_ToggleSettingsMenu(object sender, RoutedEventArgs e)
+    {
+        // invoked from context menu
         App.Instance.ToggleSettingsWindow();
     }
+
+    private void ContextMenu_ExitApp(object sender, RoutedEventArgs e)
+    {
+        App.Instance.Shutdown();
+    }
+
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -65,9 +78,10 @@ public partial class TrayWindow : Window
         SetWindowPositionAndSize();
     }
 
-    private void OnClosed(object sender, RoutedEventArgs e)
+    protected override void OnClosed(EventArgs e)
     {
         mTrayTimer.Stop();
+        base.OnClosed(e);
     }
 
     private void OnTrayTimer(object? sender, EventArgs e)

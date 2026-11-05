@@ -84,6 +84,10 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        mBluetoothScanner?.Stop();
+        mSettingsWindow?.Close();
+        mMainWindow?.Close();
+
         SettingsService.Save(Settings);
         base.OnExit(e);
     }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
 
@@ -23,6 +24,14 @@ public partial class MainWindow : Window
         // no hWND yet in contructor, but controls exists
         InitializeComponent();
         mMainTimer.Tick += OnMainTimer;
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        base.OnClosing(e);
+
+        mMainTimer.Stop();
+        CloseTrayWindow();
     }
 
     private void OnMainTimer(object? sender, EventArgs e)

@@ -35,4 +35,10 @@
             <local:CpuMetersVisual x:Name="cpuMetersVisual" Panel.ZIndex="1"/>
         </Grid>
     </StackPanel>
- </Window>
+    <Window.ContextMenu>
+        <ContextMenu x:Name="contextMenu" StaysOpen="true">
+            <MenuItem Header="Settings" Click="ContextMenu_ToggleSettingsMenu"/>
+            <MenuItem Header="Quit CPUTrayMeter" Click="ContextMenu_ExitApp"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+</Window>

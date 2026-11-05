@@ -29,6 +29,8 @@ public class BluetoothScanner
         mWatcher.Received += handler;
     }
 
+    public void Stop() => mWatcher.Stop();
+
     // TODO: unsubscribe
 };
 
